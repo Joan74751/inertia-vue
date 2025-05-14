@@ -1,16 +1,12 @@
 <?php
 
+use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/chirps', function () {
-    return Inertia::render('Chirps/Index', [
-        'title'  => 'Chirps',
-        'subtitle' => 'From PHP to JS',
-    ]);
-})->middleware('auth');
+Route::resource('chirps', ChirpController::class)->only('index','store')->middleware('auth');
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
