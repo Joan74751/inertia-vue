@@ -2,7 +2,10 @@
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
+import { ref } from 'vue';
 defineProps(['title','subtitle'])
+
+const message = ref('default Mondongo')
 
 function submit() {
     console.log('submit')
@@ -10,7 +13,7 @@ function submit() {
 </script>
 
 <template>
-    <Head title="Chirps" />
+    <Head title="Mondongo" />
 
     <AuthenticatedLayout>
         <template #header>
@@ -24,7 +27,7 @@ function submit() {
                 <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
                         <form @submit.prevent="submit">
-                            <textarea placeholder="What's on your mind?" class="block w-full rounded-md border-gray-300 bg-white"></textarea>
+                            <textarea v-model="message" placeholder="What's on your mind?" class="block w-full rounded-md border-gray-300 bg-white"></textarea>
                             <PrimaryButton class="mt-2">Chirps</PrimaryButton>
                         </form>
                     </div>

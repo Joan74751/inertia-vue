@@ -14,8 +14,8 @@ class ChirpController extends Controller
     public function index()
     {
         return Inertia::render('Chirps/Index', [
-        'title'  => 'Chirps',
-        'subtitle' => 'From PHP to JS',
+        'title'  => 'NoOOoooOOOooooOOOoooOOOoooOOOOoooooo',
+        'subtitle' => 'la polizia',
     ]);
     }
 
