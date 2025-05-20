@@ -2,13 +2,20 @@
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
+import axios from 'axios';
 import { ref } from 'vue';
 defineProps(['title','subtitle'])
 
-const message = ref('default Mondongo')
+const message = ref('')
 
 function submit() {
-    console.log('submit')
+    axios.post(route('chirps.store'), { message: message.value})
+        .then((res) => {
+            console.log(res.data);
+            message.value = ''
+        }).catch((error) => {
+            console.error(error.response.data.message);
+        });
 }
 </script>
 
