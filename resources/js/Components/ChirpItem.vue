@@ -48,7 +48,7 @@ defineProps({
         {{ chirp.message }}
       </p>
     </div>
-    <Dropdown>
+    <Dropdown v-if="chirp.user.id === $page.props.auth.user.id">
       <template #trigger>
         <button>
           <svg
