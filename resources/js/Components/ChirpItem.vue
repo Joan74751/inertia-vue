@@ -1,4 +1,12 @@
 <script setup>
+import { ref } from 'vue';
+import Dropdown from './Dropdown.vue';
+import DropdownButton from './DropdownButton.vue';
+import DropdownLink from './DropdownLink.vue';
+import ChirpForm from './ChirpForm.vue';
+
+const editing = ref(false)
+
 defineProps({
   chirp: Object,
 })
@@ -30,12 +38,35 @@ defineProps({
           <small class="ml-2 text-sm text-gray-500 dark:text-gray-600">
             {{ chirp.created_at }}
           </small>
+          <small v-if="chirp.edited" class="text-sm text-gray-500 dark:text-gray-600">
+            &middot; edited
+          </small>
         </div>
       </div>
-      <p class="mt-4 text-lg text-gray-700 dark:text-gray-900">
+      <ChirpForm v-if="editing" :chirp="chirp" @cancel="editing = false" class="mt-4"/>
+      <p v-else class="mt-4 text-lg text-gray-700 dark:text-gray-900">
         {{ chirp.message }}
       </p>
     </div>
+    <Dropdown>
+      <template #trigger>
+        <button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4 text-gray-400"
+            viewBox="0 0 20 20"
+            fill="currentColor">
+            <path
+              d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"
+            />
+          </svg>
+        </button>
+      </template>
+      <template #content>
+        <DropdownButton @click="editing = true" >Edit</DropdownButton>
+        <DropdownLink as="button" :href="route('chirps.destroy', chirp.id)" method="delete" :preserve-state="false">Eliminar</DropdownLink>
+      </template>
+    </Dropdown>
   </div>
 </template>
 

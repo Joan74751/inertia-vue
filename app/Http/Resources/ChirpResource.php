@@ -19,7 +19,8 @@ class ChirpResource extends JsonResource
             'id'  => $this->id,
             'message' => $this->message,
             'created_at' => $this->created_at->diffForHumans(),
-            'user' => new UserResource($this->whenLoaded('user')),
+            'edited' => $this->created_at != $this->updated_at,
+            'user' => UserResource::make($this->whenLoaded('user')),
         ];
     }
 }
